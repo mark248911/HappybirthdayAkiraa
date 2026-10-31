@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday! 🎉</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a0000 0%, #000000 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Rain effect container */
+        .rain-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Individual falling items */
+        .raindrop {
+            position: absolute;
+            top: -100px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(calc(100vh + 150px)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .card-container {
+            background: rgba(20, 20, 20, 0.95);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.15), 0 0 20px rgba(0, 0, 0, 0.7);
+            border: 1px solid #4a0000;
+            max-width: 400px;
+            width: 90%;
+            animation: float 3s ease-in-out infinite;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Side-by-side static character image display container */
+        .character-display {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .character-display img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px rgba(255, 51, 51, 0.5));
+        }
+
+        h1 {
+            color: #ff3333;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(255, 51, 51, 0.3);
+        }
+        p {
+            color: #cccccc;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        .gift-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #800000, #ff1a1a);
+            color: white;
+            text-decoration: none;
+            padding: 15px 35px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(255, 26, 26, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+        .gift-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 26, 26, 0.7);
+        }
+        .gift-btn:active {
+            transform: scale(0.98);
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Target element for the rain script -->
+    <div class="rain-container" id="rainContainer"></div>
+
+    <div class="card-container">
+        <!-- Static images of Pest and Rusty side-by-side inside the card layout -->
+        <div class="character-display">
+            <img src="https://static.wikia.nocookie.net/regretevator/images/b/b9/Pest_Render.png/revision/latest?cb=20241220202345" alt="Pest">
+            <img src="https://static.wikia.nocookie.net/tmirb/images/4/48/RustyOfficial.png/revision/latest?cb=20260818072953" alt="Rusty">
+        </div>
+
+        <h1>CLICK HERE NOWWW no virus🎃</h1>
+        <p>please im desperate i worked very hard on this gift.</p>
+        
+        <a href="https://akirasbirthdayyay.straw.page" class="gift-btn">Open My Gift 🕸️</a>
+    </div>
+
+    <script>
+        const images = [
+            'https://static.wikia.nocookie.net/regretevator/images/b/b9/Pest_Render.png/revision/latest?cb=20241220202345',
+            'https://static.wikia.nocookie.net/tmirb/images/4/48/RustyOfficial.png/revision/latest?cb=20260818072953'
+        ];
+
+        const rainContainer = document.getElementById('rainContainer');
+        const maxDrops = 20; 
+
+        function createRaindrop() {
+            const drop = document.createElement('div');
+            drop.classList.add('raindrop');
+
+            const randomImg = images[Math.floor(Math.random() * images.length)];
+            drop.style.backgroundImage = `url('${randomImg}')`;
+
+            const size = Math.floor(Math.random() * 40) + 40; 
+            const startX = Math.random() * 100; 
+            const duration = Math.random() * 3 + 3; 
+            const delay = Math.random() * 5; 
+
+            drop.style.width = `${size}px`;
+            drop.style.height = `${size}px`;
+            drop.style.left = `${startX}%`;
+            drop.style.animationDuration = `${duration}s`;
+            drop.style.animationDelay = `-${delay}s`; 
+
+            rainContainer.appendChild(drop);
+
+            drop.addEventListener('animationiteration', () => {
+                const newImg = images[Math.floor(Math.random() * images.length)];
+                drop.style.backgroundImage = `url('${newImg}')`;
+                drop.style.left = `${Math.random() * 100}%`;
+            });
+        }
+
+        for (let i = 0; i < maxDrops; i++) {
+            createRaindrop();
+        }
+    </script>
+</body>
+</html>
